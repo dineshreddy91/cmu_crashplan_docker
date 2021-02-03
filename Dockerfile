@@ -43,18 +43,19 @@ RUN \
     cat $(ls crashplan-install/*.cpi) | gzip -d -c - | cpio -i --no-preserve-owner --directory=${TARGETDIR} && \
     mv "${TARGETDIR}"/*.asar "${TARGETDIR}/electron/resources" && \
     rm "${TARGETDIR}"/electron/chrome-sandbox && \
-    chmod 755 "${TARGETDIR}/electron/code42" && \
-    chmod 755 "${TARGETDIR}/bin/Code42Service" && \
+    chmod 755 "${TARGETDIR}/electron/crashplan" && \
+    chmod 755 "${TARGETDIR}/bin/CrashPlanService" && \
+    #chmod 755 "${TARGETDIR}/bin/Code42Service" && \
     chmod 755 "${TARGETDIR}/bin/restore-tool" && \
     # Keep a copy of the default config.
     mv ${TARGETDIR}/conf /defaults/conf && \
     # Make sure the UI connects by default to the engine using the loopback IP address (127.0.0.1).
-    sed-patch '/<orgType>BUSINESS<\/orgType>/a \\t<serviceUIConfig>\n\t\t<serviceHost>127.0.0.1<\/serviceHost>\n\t<\/serviceUIConfig>' /defaults/conf/default.service.xml && \
+    #sed-patch '/<orgType>BUSINESS<\/orgType>/a \\t<serviceUIConfig>\n\t\t<serviceHost>127.0.0.1<\/serviceHost>\n\t<\/serviceUIConfig>' /defaults/conf/default.service.xml && \
     # Set manifest directory to default config.  It should not be used, but do
     # like the install script.
-    sed-patch "s|<backupConfig>|<backupConfig>\n\t\t\t<manifestPath>/usr/local/var/crashplan</manifestPath>|g" /defaults/conf/default.service.xml && \
+    #sed-patch "s|<backupConfig>|<backupConfig>\n\t\t\t<manifestPath>/usr/local/var/crashplan</manifestPath>|g" /defaults/conf/default.service.xml && \
     # Add the javaMemoryHeapMax setting to the default service file.
-    sed-patch '/<serviceUIConfig>/i\\t<javaMemoryHeapMax nil="true"/>' /defaults/conf/default.service.xml && \
+    #sed-patch '/<serviceUIConfig>/i\\t<javaMemoryHeapMax nil="true"/>' /defaults/conf/default.service.xml && \
     # Prevent automatic updates.
     rm -r /usr/local/crashplan/upgrade && \
     touch /usr/local/crashplan/upgrade && chmod 400 /usr/local/crashplan/upgrade && \
@@ -123,7 +124,7 @@ RUN \
     install_app_icon.sh "$APP_ICON_URL"
 
 # Add files.
-COPY rootfs/ /
+#COPY rootfs/ /
 COPY --from=0 /tmp/uname_wrapper.so /usr/local/crashplan/
 
 # Set environment variables.
