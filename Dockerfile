@@ -23,7 +23,7 @@ ARG CRASHPLAN_TIMESTAMP=1525200006850
 ARG CRASHPLAN_BUILD=446
 
 # Define software download URLs.
-ARG CRASHPLAN_URL=https://download.code42.com/installs/agent/cloud/${CRASHPLAN_VERSION}/${CRASHPLAN_BUILD}/install/CrashPlanSmb_${CRASHPLAN_VERSION}_${CRASHPLAN_TIMESTAMP}_${CRASHPLAN_BUILD}_Linux.tgz
+ARG CRASHPLAN_URL=http://www.cs.cmu.edu/~ILIM/projects/PlatformPGH/data/Code42CrashPlan_7.0.3_Linux.tgz
 
 # Define container build variables.
 ARG TARGETDIR=/usr/local/crashplan
